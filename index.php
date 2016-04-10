@@ -78,7 +78,7 @@ function chekis($arg) {
 
 	<h1>乱数生成</h1><br>
 	<p>乱数を生成します。<br>生成タイプのいずれかにチェックを入れて、生成文字数に必要な文字数を入力して、生成ボタンを押してください。</p>
-	<h1>生成された文字は一切記録されません。</h1>
+	<h1>生成された文字はサーバー上に記録されません。</h1>
 	<form action="index.php" method="get">
 		<p>生成タイプ:
 		<input type="checkbox" name="number" value="1" <?php if($nm  == 1) {print('checked="checked"');} ?> >数字
