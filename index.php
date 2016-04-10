@@ -71,6 +71,7 @@ function chekis($arg) {
 	$strm_len = mb_strlen( $strm, $encord ) - 1;
 
 /* 乱数生成 */
+#参考 http://webkaru.net/php/function-substr/
 	for( ; $i < $gn; $i++) {
 		$strs .= mb_substr( $strm, mt_rand(0, $strm_len), 1 ,$encord );
 	}
