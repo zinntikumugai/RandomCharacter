@@ -59,7 +59,7 @@ function chekis($arg) {
 	if($chb == 1) { $strm .= $str_b; }
 	if($chs == 1) { $strm .= $str_s; }
 	if($chh == 1) { $strm .= $str_h; }
-	if($chk1== 1) { $strm .= $str_h; }
+	if($chk1== 1) { $strm .= $str_k1; }
 
 /* 生成文字列元の文字数 */
 	$strm_len = mb_strlen( $strm, $encord ) - 1;
