@@ -16,6 +16,7 @@
 	$str_s   = "#$%&'()=~|-^[]{}:*+;?/!><";
 	$str_h   = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわおんゑ";
 	$str_k1  = "一右雨円王音下火花貝学気九休玉金空月犬見口校左三山子四糸字耳七車手十出女小上森人水正生青夕石赤千川先早草足村大男竹中虫町天田土二日入年白八百文木本名目立力林六五";
+	$str_k2  = "引羽雲園遠何科夏家歌 画回会海絵外角楽活間丸岩顔汽記帰弓牛魚京強教近兄形計元言原戸古午後語工公広交光考行高黄合谷国黒今才細作算止市矢姉思紙寺自時室社弱首秋週春書少場色食心新親図数西声星晴切雪船線前組走多太体台地池知茶昼長鳥朝直通弟店点電刀冬当東答頭同道読内南肉馬売買麦半番父風分聞米歩母方北毎妹万明鳴毛門夜野友用曜来里理話";
 	$def_g_n = 8;	//デフォルトの生成文字数
 	$encord  = 'UTF-8';	//文字エンコード
 	$i       = 0;	//生成カウンター
@@ -35,6 +36,7 @@ function chekis($arg) {
 	$chs = $_GET['chaers'];
 	$chh = $_GET['chaerh'];
 	$chk1= $_GET['chaerk1'];
+	$chk2= $_GET['chaerk2'];
 	$gn  = $_GET['gn'];
 
 /* 生成数存在チェック */
@@ -43,7 +45,7 @@ function chekis($arg) {
 	if( ( $gn % 1 )==$gn) { $gn = $def_g_n; }
 
 /* 表示したて、何もチェックを入れていないとき、数字モードに強制 */
-	if($nm != 1 && $ch != 1 && $chb != 1 && $chs != 1 && $chh != 1 && $chk1 != 1 ) { $nm = 1; }
+	if($nm != 1 && $ch != 1 && $chb != 1 && $chs != 1 && $chh != 1 && $chk1 != 1 && $chk2 != 1 ) { $nm = 1; }
 
 /* NULL->0 */
 	$nm  = chekis($nm );
@@ -52,6 +54,7 @@ function chekis($arg) {
 	$chs = chekis($chs); 
 	$chh = chekis($chh);
 	$chk1= chekis($chk1);
+	$chk2= chekis($chk2);
 
 /* 生成文字列元作成 */
 	if($nm  == 1) { $strm .= $str_n; }
@@ -60,6 +63,7 @@ function chekis($arg) {
 	if($chs == 1) { $strm .= $str_s; }
 	if($chh == 1) { $strm .= $str_h; }
 	if($chk1== 1) { $strm .= $str_k1; }
+	if($chk2== 1) { $strm .= $str_k2; }
 
 /* 生成文字列元の文字数 */
 	$strm_len = mb_strlen( $strm, $encord ) - 1;
@@ -80,6 +84,7 @@ function chekis($arg) {
 		<input type="checkbox" name="chaers" value="1" <?php if($chs == 1) {print('checked="checked"');} ?> >記号
 		<input type="checkbox" name="chaerh" value="1" <?php if($chh == 1) {print('checked="checked"');} ?> >ひらがな
 		<input type="checkbox" name="chaerk1" value="1" <?php if($chk1== 1) {print('checked="checked"');} ?> >漢字(小1)
+		<input type="checkbox" name="chaerk2" value="1" <?php if($chk2== 1) {print('checked="checked"'):} ?> >漢字(小2)
 		</p>
 		<p>もととなる文字の数 : <?php print($strm_len+1); ?></p>
 		<p>生成文字数<input type= "text" name="gn" value="<?php print($gn); ?>"></p>
