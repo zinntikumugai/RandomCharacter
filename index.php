@@ -15,6 +15,7 @@
 	$str_b   = 'ABCDEFGHIJLKMNOPQRSTUVWXYZ';
 	$str_s   = "#$%&'()=~|-^[]{}:*+;?/!><";
 	$str_h   = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわおんゑ";
+	$str_k1  = "一右雨円王音下火花貝学気九休玉金空月犬見口校左三山子四糸字耳七車手十出女小上森人水正生青夕石赤千川先早草足村大男竹中虫町天田土二日入年白八百文木本名目立力林六五";
 	$def_g_n = 8;	//デフォルトの生成文字数
 	$encord  = 'UTF-8';	//文字エンコード
 	$i       = 0;	//生成カウンター
@@ -33,6 +34,7 @@ function chekis($arg) {
 	$chb = $_GET['chaerb'];
 	$chs = $_GET['chaers'];
 	$chh = $_GET['chaerh'];
+	$chk1= $_GET['chaerk1'];
 	$gn  = $_GET['gn'];
 
 /* 生成数存在チェック */
@@ -41,7 +43,7 @@ function chekis($arg) {
 	if( ( $gn % 1 )==$gn) { $gn = $def_g_n; }
 
 /* 表示したて、何もチェックを入れていないとき、数字モードに強制 */
-	if($nm != 1 && $ch != 1 && $chb != 1 && $chs != 1 && $chh != 1 ) { $nm = 1; }
+	if($nm != 1 && $ch != 1 && $chb != 1 && $chs != 1 && $chh != 1 && $chk1 != 1 ) { $nm = 1; }
 
 /* NULL->0 */
 	$nm  = chekis($nm );
@@ -49,6 +51,7 @@ function chekis($arg) {
 	$chb = chekis($chb);
 	$chs = chekis($chs); 
 	$chh = chekis($chh);
+	$chk1= chekis($chk1);
 
 /* 生成文字列元作成 */
 	if($nm  == 1) { $strm .= $str_n; }
@@ -56,6 +59,7 @@ function chekis($arg) {
 	if($chb == 1) { $strm .= $str_b; }
 	if($chs == 1) { $strm .= $str_s; }
 	if($chh == 1) { $strm .= $str_h; }
+	if($chk1== 1) { $strm .= $str_h; }
 
 /* 生成文字列元の文字数 */
 	$strm_len = mb_strlen( $strm, $encord ) - 1;
@@ -75,6 +79,7 @@ function chekis($arg) {
 		<input type="checkbox" name="chaerb" value="1" <?php if($chb == 1) {print('checked="checked"');} ?> >英字(大)
 		<input type="checkbox" name="chaers" value="1" <?php if($chs == 1) {print('checked="checked"');} ?> >記号
 		<input type="checkbox" name="chaerh" value="1" <?php if($chh == 1) {print('checked="checked"');} ?> >ひらがな
+		<imput type="checkbox" name="chaerk1" value="1" <?php if($chk1== 1) {print('checked="checked"');} ?> >漢字(小1)
 		</p>
 		<p>生成文字数<input type= "text" name="gn" value="<?php print($gn); ?>"></p>
 		<input type="submit" value="生成">
