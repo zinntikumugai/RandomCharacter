@@ -87,6 +87,10 @@ function chekis($arg) {
 		<p>生成文字<input type="text" name="" value="<?php print($strs); ?>"></p>
 		
 	</form>
+	<div>
+		<p><a href="https://github.com/zinntikumugai/RandomCharacter">ソース</a></p>
+		<p>&copy; 人畜無害 - zinntiku.pe.hu</p>
+	</div>
 	
 </body>
 </html>
