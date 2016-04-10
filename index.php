@@ -81,6 +81,7 @@ function chekis($arg) {
 		<input type="checkbox" name="chaerh" value="1" <?php if($chh == 1) {print('checked="checked"');} ?> >ひらがな
 		<input type="checkbox" name="chaerk1" value="1" <?php if($chk1== 1) {print('checked="checked"');} ?> >漢字(小1)
 		</p>
+		<p>現在の生成元の文字数 : <?php print($strm_len+1); ?></p>
 		<p>生成文字数<input type= "text" name="gn" value="<?php print($gn); ?>"></p>
 		<input type="submit" value="生成">
 		<p>生成文字<input type="text" name="" value="<?php print($strs); ?>"></p>
