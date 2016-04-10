@@ -79,7 +79,7 @@ function chekis($arg) {
 		<input type="checkbox" name="chaerb" value="1" <?php if($chb == 1) {print('checked="checked"');} ?> >英字(大)
 		<input type="checkbox" name="chaers" value="1" <?php if($chs == 1) {print('checked="checked"');} ?> >記号
 		<input type="checkbox" name="chaerh" value="1" <?php if($chh == 1) {print('checked="checked"');} ?> >ひらがな
-		<imput type="checkbox" name="chaerk1" value="1" <?php if($chk1== 1) {print('checked="checked"');} ?> >漢字(小1)
+		<input type="checkbox" name="chaerk1" value="1" <?php if($chk1== 1) {print('checked="checked"');} ?> >漢字(小1)
 		</p>
 		<p>生成文字数<input type= "text" name="gn" value="<?php print($gn); ?>"></p>
 		<input type="submit" value="生成">
