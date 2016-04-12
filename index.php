@@ -3,6 +3,13 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>ランダム文字</title>
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    	<script src="https://cdn.jsdelivr.net/clipboard.js/1.5.3/clipboard.min.js"></script>
+    	<script>
+        $(function () {
+        	var clipboard = new Clipboard('.bt');
+        });
+    </script>
 </head>
 <body>
 <?php
@@ -103,7 +110,9 @@ function printchecked($arg) {
 		<p>もととなる文字の数 : <?php print($strm_len+1); ?></p>
 		<p>生成文字数<input type= "text" name="gn" value="<?php print($gn); ?>"></p>
 		<input type="submit" value="生成">
-		<p>生成文字<input type="text" name="" value="<?php print($strs); ?>"></p>
+		<p>生成文字<input id="out" type="text" name="" value="<?php print($strs); ?>"></p>
+		<?php /* 参考 http://qiita.com/inouet/items/26b93c5f5f4b65c05e00 */ ?>
+		<button class="bt" data-clipboard-target="#out">コピー</button>
 		
 	</form>
 	<div>
