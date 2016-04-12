@@ -27,7 +27,11 @@
 function chekis($arg) {
 	if( !isset($arg) ) {return 0;}
 	else { 
-	if($arg != 1) {return $arg; }else {return 1;} 
+		if($arg != 1) {
+			return $arg;
+		}else {
+			return 1;
+		} 
 	}
 }
 
