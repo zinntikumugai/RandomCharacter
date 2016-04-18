@@ -64,7 +64,9 @@ function printchecked($arg) {
 	if( ( $gn % 1 )==$gn) { $gn = $def_g_n; }
 
 /* 表示したて、何もチェックを入れていないとき、数字モードに強制 */
-	if($nm != 1 && $ch != 1 && $chb != 1 && $chs != 1 && $chh != 1 && $chk1 != 1 && $chk2 != 1 ) { $nm = 1; }
+	if($nm != 1 && $ch != 1 && $chb != 1 && $chs != 1 && $chh != 1 && $chk1 != 1 && $chk2 != 1 ) { 
+		$nm = 1; 
+	}
 
 /* NULL->0 */
 	$nm  = chekis($nm );
@@ -107,7 +109,7 @@ function printchecked($arg) {
 		<input type="checkbox" name="chaerk1" value="1" <?php printchecked( $chk1 ); ?> >漢字(小1)
 		<input type="checkbox" name="chaerk2" value="1" <?php printchecked( $chk2 ); ?> >漢字(小2)
 		</p>
-		<p>もととなる文字の数 : <?php print($strm_len+1); ?></p>
+		<p>もととなる文字の数 : <?php print($strm_len + 1); ?></p>
 		<p>生成文字数<input type= "text" name="gn" value="<?php print($gn); ?>"></p>
 		<input type="submit" value="生成">
 		<p>生成文字<input id="out" type="text" name="" value="<?php print($strs); ?>"></p>
