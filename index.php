@@ -99,13 +99,13 @@ function printchecked($arg) {
 	<h1>生成された文字はサーバー上に記録されません。</h1>
 	<form action="index.php" method="get">
 		<p>生成タイプ:
-		<input type="checkbox" name="number" value="1" <?php printchecked($nm) ?> >数字
-		<input type="checkbox" name="chaer"  value="1" <?php printchecked($ch  == 1); ?> >英字(小)
-		<input type="checkbox" name="chaerb" value="1" <?php printchecked($chb == 1); ?> >英字(大)
-		<input type="checkbox" name="chaers" value="1" <?php printchecked($chs == 1); ?> >記号
-		<input type="checkbox" name="chaerh" value="1" <?php printchecked($chh == 1); ?> >ひらがな
-		<input type="checkbox" name="chaerk1" value="1" <?php printchecked($chk1== 1); ?> >漢字(小1)
-		<input type="checkbox" name="chaerk2" value="1" <?php printchecked($chk2== 1); ?> >漢字(小2)
+		<input type="checkbox" name="number" value="1" <?php printchecked(  $nm   ) ?> >数字
+		<input type="checkbox" name="chaer"  value="1" <?php printchecked(  $ch   ); ?> >英字(小)
+		<input type="checkbox" name="chaerb" value="1" <?php printchecked(  $chb  ); ?> >英字(大)
+		<input type="checkbox" name="chaers" value="1" <?php printchecked(  $chs  ); ?> >記号
+		<input type="checkbox" name="chaerh" value="1" <?php printchecked(  $chh  ); ?> >ひらがな
+		<input type="checkbox" name="chaerk1" value="1" <?php printchecked( $chk1 ); ?> >漢字(小1)
+		<input type="checkbox" name="chaerk2" value="1" <?php printchecked( $chk2 ); ?> >漢字(小2)
 		</p>
 		<p>もととなる文字の数 : <?php print($strm_len+1); ?></p>
 		<p>生成文字数<input type= "text" name="gn" value="<?php print($gn); ?>"></p>
