@@ -1,126 +1,114 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>ランダム文字</title>
-	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    	<script src="https://cdn.jsdelivr.net/clipboard.js/1.5.3/clipboard.min.js"></script>
-    	<script>
-        $(function () {
-        	var clipboard = new Clipboard('.bt');
-        });
-    </script>
-</head>
-<body>
 <?php
+//ヘッダー
+include("header.php");
+//データファイル
+include("datas.php");
+//関数ファイル
+include("function.php");
+//コンフィグファイル
+include("config.php");
 
-/* 変数宣言 */
-	$strm    = '';	//生成文字元
-	$strs    = '';	//生成文字
-	$str_n   = '0123456789';
-	$str_c   = 'abcdefghijklmnopqrstuvwxyz';
-	$str_b   = 'ABCDEFGHIJLKMNOPQRSTUVWXYZ';
-	$str_s   = "#$%&'()=~|-^[]{}:*+;?/!><";
-	$str_h   = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわおんゑ";
-	#漢字小学1年生 参考 http://kakijun.jp/main/SGixmain1.html
-	$str_k1  = "一右雨円王音下火花貝学気九休玉金空月犬見口校左三山子四糸字耳七車手十出女小上森人水正生青夕石赤千川先早草足村大男竹中虫町天田土二日入年白八百文木本名目立力林六五";
-	#漢字小学2年生 参考 https://ja.wikibooks.org/wiki/%E5%B0%8F%E5%AD%A6%E6%A0%A1%E5%9B%BD%E8%AA%9E/%E6%BC%A2%E5%AD%97/2%E5%B9%B4%E7%94%9F%E3%81%A7%E7%BF%92%E3%81%86%E6%BC%A2%E5%AD%97
-	$str_k2  = "引羽雲園遠何科夏家歌画回会海絵外角楽活間丸岩顔汽記帰弓牛魚京強教近兄形計元言原戸古午後語工公広交光考行高黄合谷国黒今才細作算止市矢姉思紙寺自時室社弱首秋週春書少場色食心新親図数西声星晴切雪船線前組走多太体台地池知茶昼長鳥朝直通弟店点電刀冬当東答頭同道読内南肉馬売買麦半番父風分聞米歩母方北毎妹万明鳴毛門夜野友用曜来里理話";
-	$def_g_n = 8;	//デフォルトの生成文字数
-	$encord  = 'UTF-8';	//文字エンコード
-	$i       = 0;	//生成カウンター
+//初期設定
+$g_n = $def_g_n;
 
-/* 関数宣言 */
-function chekis($arg) {
-	if( !isset($arg) ) {return 0;}
-	else { 
-		if($arg != 1) {
-			return $arg;
-		}else {
-			return 1;
-		} 
-	}
+//すべてのリスト
+$All_list = array(
+    $str_n,
+    $str_sc,
+    $str_bc,
+    $str_s1,
+    $str_s2,
+    $str_h,
+    $str_k1,
+    $str_k2,
+);
+//をシャッフルする(参照元データ)
+
+foreach ($All_list as &$value) {
+    shuffledata($value);
 }
 
-function printchecked($arg) {
-	if( $arg == 1) {
-		print('checked="checked"');
-	}
+
+//GETから取得
+$list = array( 0, 0, 0, 0, 0, 0, 0, 0, );
+$cnt= 0;
+$chek = 0;
+foreach ($show as $value) {
+    $list[$cnt] = chekGET($value[0]);
+    $chek += $list[$cnt];
+    $cnt +=1;
 }
 
-/* 入力データ状態取得 */
-	$nm  = $_GET['number'];
-	$ch  = $_GET['chaer'];
-	$chb = $_GET['chaerb'];
-	$chs = $_GET['chaers'];
-	$chh = $_GET['chaerh'];
-	$chk1= $_GET['chaerk1'];
-	$chk2= $_GET['chaerk2'];
-	$gn  = $_GET['gn'];
+//生成数が正しくないときはデフォルト
+@$g_n = $_GET['gn'];
+if( !isset($g_n) || $g_n=='') {
+    $g_n = $def_g_n;
+}
 
-/* 生成数存在チェック */
-	if( $gn == null ) { $gn = $def_g_n; }
-	if( $gn < 0 ) { $gn = $def_g_n; }
-	if( ( $gn % 1 )==$gn) { $gn = $def_g_n; }
+//何もチェックを入れていないので数字に固定
+if($chek<=0) {
+    $list[0] = 1;
+}
 
-/* 表示したて、何もチェックを入れていないとき、数字モードに強制 */
-	if($nm != 1 && $ch != 1 && $chb != 1 && $chs != 1 && $chh != 1 && $chk1 != 1 && $chk2 != 1 ) { 
-		$nm = 1; 
-	}
+//参照元作成
+$cnt = 0;
+$meta = array();
+foreach ($list as $value) {
+    if( $value==1 ) {
+        $meta = magedata($meta, $All_list[$cnt]);
+    }
+    $cnt +=1;
+}
 
-/* NULL->0 */
-	$nm  = chekis($nm );
-	$ch  = chekis($ch );
-	$chb = chekis($chb);
-	$chs = chekis($chs); 
-	$chh = chekis($chh);
-	$chk1= chekis($chk1);
-	$chk2= chekis($chk2);
+//さらにシャッフル
+shuffledata($meta);
 
-/* 生成文字列元作成 */
-	if($nm  == 1) { $strm .= $str_n; }
-	if($ch  == 1) { $strm .= $str_c; }
-	if($chb == 1) { $strm .= $str_b; }
-	if($chs == 1) { $strm .= $str_s; }
-	if($chh == 1) { $strm .= $str_h; }
-	if($chk1== 1) { $strm .= $str_k1; }
-	if($chk2== 1) { $strm .= $str_k2; }
+$meta_len = sizeof($meta, COUNT_RECURSIVE);
+//mb_substrだと連想配列から抜き出せないから変数に置き換える
+$str = $meta;
+$meta = "";
+foreach ($str as $value) {
+    $meta .= $value;
+}
+//生成
+$str = "";
+for($cnt=0; $cnt<$g_n; $cnt++) {
+    $str .= mb_substr( $meta, mt_rand(0, $meta_len), 1, $encord);
+}
+$gn_len = mb_strlen($str, $encord) + 2;
 
-/* 生成文字列元の文字数 */
-	$strm_len = mb_strlen( $strm, $encord ) - 1;
+//結果を出力
+$cnt = 0;
+foreach ($show as $value) {
+    echo "\t\t\t" .'<input type="checkbox" name="' .$value[0] .'" ' ."\t" .'value="1" ' .ischekd($list[$cnt]) .'>' .$value[1] ."\n";
+    $cnt += 1;
+}
+echo "\t\t</p>\n";
+echo "\t\t<p>もととなる文字列の数：" .$meta_len ."</p>\n";
+echo "\t\t<p>生成文字数\n";
+echo "\t\t\t" .'<input tyoe="text" name="gn" value="' .$g_n .'">' ."\n";
+echo "\t\t\t" .'<input type="submit" value="生成">' ."\n";
+echo "\t\t" .'<p>生成文字' ."\n";
+echo "\t\t\t" .'<input id="out" type="text" name="" value="' .$str .'" size="' .$gn_len .'">' ."\n";
+include("futter.php");
 
-/* 乱数生成 */
-#参考 http://webkaru.net/php/function-substr/
-	for( ; $i < $gn; $i++) {
-		$strs .= mb_substr( $strm, mt_rand(0, $strm_len), 1 ,$encord );
-	}
+
+
+
+
+//shuffle($str_sc);
+
+//print_r($str_sc);
+
+//shuffledata($str_sc);
+//print_r($str_sc);
+/*
+//ランダム化
+$test = array_merge($str_n, $str_sc, $str_bc, $str_s1, $str_s2, $str_h);
+print("<br>\n<br>\n");
+print_r($test);
+shuffle($test);
+print("<br>\n<br>\n");
+print_r($test);
+*/
 ?>
-
-	<h1>ランダムな文字生成</h1><br>
-	<p>ランダムな文字を生成します。<br>生成タイプのいずれかにチェックを入れて、生成文字数に必要な文字数を入力して、生成ボタンを押してください。</p>
-	<h1>生成された文字はサーバー上に記録されません。</h1>
-	<form action="index.php" method="get">
-		<p>生成タイプ:
-		<input type="checkbox" name="number" value="1" <?php printchecked(  $nm   ) ?> >数字
-		<input type="checkbox" name="chaer"  value="1" <?php printchecked(  $ch   ); ?> >英字(小)
-		<input type="checkbox" name="chaerb" value="1" <?php printchecked(  $chb  ); ?> >英字(大)
-		<input type="checkbox" name="chaers" value="1" <?php printchecked(  $chs  ); ?> >記号
-		<input type="checkbox" name="chaerh" value="1" <?php printchecked(  $chh  ); ?> >ひらがな
-		<input type="checkbox" name="chaerk1" value="1" <?php printchecked( $chk1 ); ?> >漢字(小1)
-		<input type="checkbox" name="chaerk2" value="1" <?php printchecked( $chk2 ); ?> >漢字(小2)
-		</p>
-		<p>もととなる文字の数 : <?php print($strm_len + 1); ?></p>
-		<p>生成文字数<input type= "text" name="gn" value="<?php print($gn); ?>"></p>
-		<input type="submit" value="生成">
-		<p>生成文字<input id="out" type="text" name="" value="<?php print($strs); ?>"></p>
-		<?php /* 参考 http://qiita.com/inouet/items/26b93c5f5f4b65c05e00 */ ?>
-		<button class="bt" data-clipboard-target="#out">コピー</button>
-		
-	</form>
-	<div>
-		<p><a href="https://github.com/zinntikumugai/RandomCharacter" target="_blank">ソース</a></p>
-		<p>&copy; 人畜無害 - zinntiku.pe.hu</p>
-	</div>
-	
-</body>
-</html>
